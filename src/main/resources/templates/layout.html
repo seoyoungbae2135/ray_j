@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>20240214-5</title>
+    <!-- 부트스트랩 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <th:block layout:fragment="css"></th:block>  <!--body.html의 fragment="css" 부분이 이곳으로 링크-->
+    <th:block layout:fragment="script"></th:block> <!--body.html의 fragment="script" 부분이 이곳으로 링크-->
+
+</head>
+<body> a.replace("a","b");
+
+    <div th:replace="top :: topFrag">여기는 top</div>
+    <h3>여기는 layout.html</h3>
+    <div layout:fragment="body"> 여기는 body </div> <!--body는 별명, body.html에서도 동일한 별명 적용-->
+    <div th:replace="foot :: footFrag">여기는 foot</div>
+
+</body>
+</html>
