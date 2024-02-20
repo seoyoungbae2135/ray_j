@@ -1,0 +1,37 @@
+
+#main{
+    width:600px;
+    margin:0 auto;
+}
+#writeForm{
+    width:100%;
+    padding:30px 0 100px 0;
+}
+#writeForm ul{
+    width:100%;
+}
+#writeForm ul li{
+    line-height:40px;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+#writeForm ul li span{
+    display:inline-block;
+    width:20%;
+}
+#writeForm ul li input{
+    width:80%;
+    padding:15px;
+    border:1px solid #aaa;
+    border-radius:10px;
+}
+#writeForm ul li button{
+    background:#ffd013;
+    border:0;
+    width:100%;
+    padding:25px 0;
+    text-align:center;
+    font-size:17px;
+    border-radius:10px;
+}

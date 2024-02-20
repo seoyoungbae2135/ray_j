@@ -4,15 +4,31 @@
 
 <div th:fragment="headerFrag" id="header">
     <ul class="menu_list">
-        <li class="menu"><a href="">HOME</a></li>
+        <li class="menu"><a href="/">HOME</a></li>
         <li class="menu"><a href="">가구</a></li>
         <li class="menu"><a href="">가전</a></li>
-        <li class="menu"><a href="">노트북</a></li>
+        <li class="menu"><a href="/notebook">노트북</a></li>
     </ul>
 
     <div class="small_menu">
-        <span><a href="/signin">로그인</a></span>
-        <span><a href="/signup">회원가입</a></span>
+
+        <th:block th:if="${session.user == null }">
+            <span><a href="/signin">로그인</a></span>
+            <span><a href="/signup">회원가입</a></span>
+        </th:block>
+        <th:block th:if="${session.user != null}">
+            <span id="user-box">
+                <a id="my" href="javascript:infoSlide();" th:text="${session.user.name}"></a>
+                <span class="myinfo-box">
+                    <a href="/myinfo">마이정보</a>
+                    <a href="/logout">로그아웃</a>
+                </span>
+            </span>
+
+        </th:block>
+
     </div>
+
 </div>
+
 </html>

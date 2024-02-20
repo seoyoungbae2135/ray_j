@@ -6,7 +6,7 @@
     box-sizing:border-box;
 }
 
-a{ text-decoration:none; color:inherit;}
+a{  text-decoration:none;  color:inherit;}
 ul{ list-style-type:none;}
 
 #wrap{
@@ -16,7 +16,7 @@ ul{ list-style-type:none;}
 }
 #header{
     width:100%;
-    padding:50px; display:flex; align-items:center;
+    padding:50px;  display:flex; align-items:center;
 }
 .menu_list{
     display:flex;
@@ -31,7 +31,24 @@ ul{ list-style-type:none;}
 .small_menu{
     width:20%; text-align:end; font-size:12px;
 }
-.small_menu>span{ display:inline-block; padding:8px;}
+.small_menu>span{ display:inline-block;  padding:8px; }
+
+#user-box{
+    display:flex;
+    flex-direction: column;
+    position:relative;
+}
+.myinfo-box{display:none;
+    position:absolute;
+    right: 0;
+    top: 30px;
+}
+.myinfo-box a{
+    padding:10px;
+    display:block;
+}
+
+
 
 #footer{
     width:100%;
@@ -40,7 +57,5 @@ ul{ list-style-type:none;}
     color:#eee;
     position:relative;
 }
-#footer .who{ position:absolute; right:100px;}
-
-
+#footer .who{  position:absolute; right:100px; }
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}">
+<!--20240219~20240220-3-->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/item/write.css}">
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/javascript/item/write.js}"></script>
+</th:block>
+
+
+<div layout:fragment="content" id="main">
+    <form method="post" th:action="@{/notebook/write}" th:object="${itemDto}" enctype="multipart/form-data">
+        <input type="hidden" th:value="${session.user.name}" name="seller">
+        <div id="writeForm">
+            <ul>
+                <li>
+                    <span>상품명</span>
+                    <input type="text" th:field="*{itemName}">
+                </li>
+                <li>
+                    <span>브랜드</span>
+                    <input type="text" th:field="*{brand}">
+                </li>
+                <li>
+                    <span>cpu</span>
+                    <input type="text" th:field="*{cpu}">
+                </li>
+                <li>
+                    <span>ram</span>
+                    <input type="text" th:field="*{ram}">
+                </li>
+                <li>
+                    <span>화면크기</span>
+                    <input type="text" th:field="*{inch}">
+                </li>
+                <li>
+                    <span>운영체제</span>
+                    <input type="text" th:field="*{os}">
+                </li>
+                <li>
+                    <span>판매금액</span>
+                    <input type="text" th:field="*{cost}">
+                </li>
+                <li>
+                    <span>상품이미지</span>
+                    <input type="file" name="img" id="img">
+                    <div id="preview" style="width:300px; height:200px; overflow:hidden;"></div>
+                </li>
+                <li>
+                    <button>등록</button>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+</html>

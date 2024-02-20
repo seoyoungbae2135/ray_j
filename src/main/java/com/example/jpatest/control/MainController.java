@@ -1,13 +1,89 @@
 package com.example.jpatest.control;
-// 20240214-7
+//20240215-5
+import com.example.jpatest.dto.MemberDto;
+import com.example.jpatest.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    MemberService memberService;
+
 
     @GetMapping("/")
     public String index(){
         return "main/index";
     }
+
+    @GetMapping("/signup")
+    public String signupForm(Model model){
+        model.addAttribute("memberDto", new MemberDto() );
+        return "member/signupForm";
+    }
+
+    @GetMapping("/signin")
+    public String signinForm(Model model){
+        model.addAttribute("memberDto", new MemberDto() );
+        return "member/signinForm";
+    }
+
+    @PostMapping("/signup")
+    public String signup(@Valid MemberDto memberDto , BindingResult bind,
+                         Model model){
+        if( bind. hasErrors()){
+            System.out.println("유효하지 않은 값");
+        }
+        memberService.memberInsert(memberDto);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/signin")
+    public String signin(MemberDto memberDto,
+                         HttpServletRequest httpServletRequest, Model model){
+
+        //로그인 처리
+        memberDto = memberService.memberLogin(memberDto, httpServletRequest.getRemoteAddr());
+        httpServletRequest.getSession().invalidate();
+
+        if(memberDto !=null ) {
+            // memberService.setHistory(httpServletRequest.getRemoteAddr(), memberDto.getId());
+            HttpSession session = httpServletRequest.getSession();
+            session.setAttribute("user",memberDto);
+            session.setMaxInactiveInterval(3600);
+        }else{
+            model.addAttribute("fail","아이디 또는 비밀번호가 일치하지 않습니다.");
+            return "member/signinForm";
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest httpServletRequest){
+        httpServletRequest.getSession().invalidate();
+        return "redirect:/";
+    }
+
+    @GetMapping("/myinfo")
+    public String info(HttpServletRequest httpServletRequest,
+                       Model model){
+        MemberDto memberDto = (MemberDto) httpServletRequest.getSession().getAttribute("user");
+        // 현재 로그인 회원의 정보를 가져오기( 회원정보, 로그인기록)
+
+        model.addAttribute("myInfoDto", memberService.myInfo(memberDto));
+
+        return "member/info";
+    }
+
+
 }
