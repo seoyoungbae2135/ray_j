@@ -41,6 +41,14 @@
     <p>
         <img th:src="@{ '/images/'+ ${item.itemImg.imgPath} +'/'+ ${item.itemImg.imgName} }">
     </p>
+
+    <p> <!--20240221-1-->
+        <a th:href="@{/notebook}">목록</a>
+        <th:block th:if="${session.user !=null}">
+            <a th:if="${ #strings.equals(item.seller, session.user.name) }" th:href="@{ |/notebook/update/${item.id}| }">수정</a>
+            <a th:if="${ #strings.equals(item.seller, session.user.name) }" th:href="@{ |/notebook/delete/${item.id}| }">삭제</a>
+        </th:block>
+    </p>
 </div>
 
 </html>

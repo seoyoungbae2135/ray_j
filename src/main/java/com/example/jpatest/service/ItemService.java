@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Transactional //20240221-2 추가(데이터베이스 수정관련)
 @Service
 public class ItemService {
 
@@ -26,6 +28,26 @@ public class ItemService {
 
     @Autowired
     private ItemImgRepo itemImgRepo;
+
+    //상품삭제 20240221-3
+    public void deleteItem(Long id){
+        //연관관계 엔티티삭제 - 주와 종 관계에서 종먼저 삭제하고 주 삭제
+        itemImgRepo.deleteByItemId(id);
+        itemRepo.deleteById(id);
+    }
+
+    //상품 수정 적용 - entity객체 수정 20240221-2
+    public void updateItem(ItemDto itemDto){
+        Item item = itemRepo.findById( itemDto.getId()).get();
+        item.updateItem(itemDto);
+    }
+
+    // 수정 페이지 20240221-1
+    public ItemDto getItemDtl(Long id){
+        Item item = itemRepo.findById(id).get();
+        ItemDto itemDto = ItemDto.of(item);
+        return itemDto;
+    }
 
     //상세페이지
     public Item detail(Long id){

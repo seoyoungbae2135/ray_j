@@ -12,8 +12,9 @@
 
 
 <div layout:fragment="content" id="main">
-    <form method="post" th:action="@{/notebook/write}" th:object="${itemDto}" enctype="multipart/form-data">
+    <form method="post" th:object="${itemDto}" enctype="multipart/form-data"> <!--th:action="@{/notebook/write}" 20240221-2-->
         <input type="hidden" th:value="${session.user.name}" name="seller">
+        <input type="hidden" th:field="*{id}">
         <div id="writeForm">
             <ul>
                 <li>
@@ -49,8 +50,11 @@
                     <input type="file" name="img" id="img">
                     <div id="preview" style="width:300px; height:200px; overflow:hidden;"></div>
                 </li>
-                <li>
-                    <button>등록</button>
+                <li th:if="${ #strings.isEmpty(itemDto.id) }">
+                    <button th:formaction="@{/notebook/write}">등록</button>
+                </li>
+                <li th:unless="${ #strings.isEmpty(itemDto.id) }">
+                    <button th:formaction="@{ '/notebook/update/'+${itemDto.id} }">수정</button>
                 </li>
             </ul>
         </div>

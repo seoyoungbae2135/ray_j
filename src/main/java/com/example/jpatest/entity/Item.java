@@ -39,6 +39,17 @@ public class Item {
     @OneToOne(mappedBy = "item")
     private ItemImg itemImg;
 
+    //20240221-2 상품 수정 적용 - entity객체 수정 itemService.java 연계
+    public void updateItem(ItemDto itemDto){
+        this.cost = itemDto.getCost();
+        this.cpu = itemDto.getCpu();
+        this.itemName = itemDto.getItemName();
+        this.brand = itemDto.getBrand();
+        this.inch = itemDto.getInch();
+        this.ram = itemDto.getRam();
+        this.os = itemDto.getOs();
+    }
+
     private static ModelMapper modelMapper=new ModelMapper();
     // 반드시 변수이름이 같아야 한다
     public static Item of(ItemDto itemDto){

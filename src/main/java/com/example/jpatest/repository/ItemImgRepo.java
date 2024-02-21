@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemImgRepo extends JpaRepository<ItemImg,Long> {
 
+        void deleteByItemId(Long itemId);
 }
